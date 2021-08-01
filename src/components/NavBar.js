@@ -1,4 +1,5 @@
 import "./css/navBar.css"
+import CartWidget from "./CartWidget"
 
 function NavBar (){
   return(
@@ -12,6 +13,7 @@ function NavBar (){
       </div>
       <div className="navMenu">
         <button className="navBtn navMenuLogIn" onClick={"logInPage"}>Login/Register</button>
+        <CartWidget />
       </div>
     </header>
   )
