@@ -6,13 +6,13 @@ function NavBar (){
     <header className="header">
       <img className="logo" src="" alt="Logo de la App"/>
       <div className="navMenu">
-        <button className="navBtn navMenuItem" onClick={"aboutPage"}>Nosotros</button>
-        <button className="navBtn navMenuItem" onClick={"howPage"}>Como funciona</button>
-        <button className="navBtn navMenuItem" onClick={"recipesPage"}>Recetas</button>
-        <button className="navBtn navMenuItem" onClick={"suscribePage"}>Suscripción</button>
+        <a href="http://localhost:3000/" className="navBtn navMenuItem">Nosotros</a>
+        <a href="http://localhost:3000/" className="navBtn navMenuItem">Como funciona</a>
+        <a href="http://localhost:3000/" className="navBtn navMenuItem">Recetas</a>
+        <a href="http://localhost:3000/" className="navBtn navMenuItem">Suscripción</a>
       </div>
       <div className="navMenu">
-        <button className="navBtn navMenuLogIn" onClick={"logInPage"}>Login/Register</button>
+        <a href="http://localhost:3000/" className="navBtn navMenuLogIn">Login/Register</a>
         <CartWidget />
       </div>
     </header>

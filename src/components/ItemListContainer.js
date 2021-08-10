@@ -1,21 +1,12 @@
-import React, {useState} from "react"
+//import React, {useState} from "react"
+import ItemCount from "./itemCount"
 import "./css/itemListContainer.css"
 
-export default function ItemCount (){
-  const [count, setCount] = useState(0);
+export default function ItemListContainer (){
 
   return(
-    <>
-    <div className="container">
-      <div className="row">
-        <button className="incrementals btn" onClick={()=>{setCount(count -1)}}>-</button>
-        <p className="count">{count}</p>
-        <button className="incrementals btn" onClick={()=>{setCount(count + 1)}}>+</button>
-      </div>
-      <div className="row">
-        <button className="add btn">Add to cart</button>
-      </div>
-    </div>
-    </>
+    <section>
+      <ItemCount initial="1" itemsLeft="10" onAdd/>
+    </section>
   )
 }
