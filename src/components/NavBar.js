@@ -1,18 +1,20 @@
 import "./css/navBar.css"
 import CartWidget from "./CartWidget"
+import { Link } from "react-router-dom"
 
 function NavBar (){
   return(
     <header className="header">
-      <img className="logo" src="" alt="Logo de la App"/>
+    <Link to={`/`}><img className="logo" src="" alt="Logo de la App"/></Link>
+      
       <div className="navMenu">
-        <a href="http://localhost:3000/" className="navBtn navMenuItem">Nosotros</a>
-        <a href="http://localhost:3000/" className="navBtn navMenuItem">Como funciona</a>
-        <a href="http://localhost:3000/" className="navBtn navMenuItem">Recetas</a>
-        <a href="http://localhost:3000/" className="navBtn navMenuItem">Suscripción</a>
+        <Link to={`/about`} className="navBtn navMenuItem">Nosotros</Link>
+        <Link to={`/how-it-works`} className="navBtn navMenuItem">Cómo funciona</Link>
+        <Link to={`/recipes`} className="navBtn navMenuItem">Recetas</Link>
+        <Link to={`/suscription`} className="navBtn navMenuItem">Suscription</Link>
       </div>
       <div className="navMenu">
-        <a href="http://localhost:3000/" className="navBtn navMenuLogIn">Login/Register</a>
+        <Link to={`/login`} className="navBtn navMenuLogIn">Login/Register</Link>
         <CartWidget />
       </div>
     </header>
