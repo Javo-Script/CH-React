@@ -1,12 +1,8 @@
-import {useContext, useState} from "react"
-import {CartContext} from '../context/cartContext';
+import {useState} from "react"
+import { Link } from "react-router-dom";
 
-export default function ItemCount ({stock, initial, id}){
+export default function ItemCount ({stock, initial, id, onAdd, hidden}){
     const [count, setCount] = useState(parseInt(initial));
-    /*const [itemId, setItemId] = useContext(CartContext);
-    const [itemQuantity, setItemQuantity] = useContext(CartContext);
-
-    console.log(itemId, itemQuantity);*/
 
     const increase = () => {
       if (count < stock) {
@@ -19,9 +15,6 @@ export default function ItemCount ({stock, initial, id}){
         setCount( count - 1)
       }
     };
-
-    const onAdd = () => {
-    }
     const disabled = count<1 ? true : false;
   
     return(
@@ -32,7 +25,8 @@ export default function ItemCount ({stock, initial, id}){
             <button className="incrementals btn" onClick={increase}>+</button>
           </div>
           <div className="row">
-            <button className="add btn" onClick={onAdd} disabled={disabled} >Add to cart</button>
+            <button className="add btn" onClick={()=>onAdd(id, count)} disabled={disabled} >Add to cart</button>
+            <Link to="/cart"><button className="purchase btn" hidden={hidden} >Ir al carrito</button></Link>            
           </div>
         </div>
   )

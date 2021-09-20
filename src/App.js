@@ -8,36 +8,16 @@ import About from './components/about';
 import HowItWorks from './components/howItWorks';
 import Products from './components/products';
 import ItemDetails from './components/itemDetails';
-import Suscription from './components/suscription';
 import Login from './components/login';
+import Cart from './components/cart';
 import { CartContext } from './context/cartContext';
-import { useContext, useState, useEffect } from 'react';
-import { RecipesContext } from './context/recipesContext';
+import { useState, useEffect } from 'react';
 
-function App() {
-  const [itemId, setItemId] = useState("")
-  const [itemQuantity, setItemQuantity] = useState(0)
-  
-  //TRATO DE BUSCAR Y GUARDAR LA DATA EN EL CONTEXT
-  /*const [recipesData, setRecipesData] = useContext(RecipesContext);
-
-  useEffect(()=>{
-    const getRecipesData = async ()=>{
-      const recipesCollection = collection(getData(), 'recetas');
-      const recipesSnapshot = await  getDocs(recipesCollection);
-      const recipesList = recipesSnapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      }));
-      setRecipesData(recipesList);
-    };
-
-    getRecipesData();
-    console.log(recipesData)
-  })*/
+export default function App() {
+  const [cartItems, setCartItems] = useState([]);
 
   //TRATO DE BUSCAR LA DATA Y GUARDARLA EN EL STATE
-  /*const [recipesData, setRecipesData] = useState([]);
+  const [recipesData, setRecipesData] = useState([]);
 
   useEffect(()=>{
     const getRecipesData = async () => {
@@ -52,11 +32,11 @@ function App() {
     };
 
     getRecipesData();
-  })*/
+},[])
 
   return (
     <BrowserRouter>
-      <CartContext.Provider value={{itemId, setItemId, itemQuantity, setItemQuantity}}>
+      <CartContext.Provider value={{cartItems, setCartItems}}>
         <NavBar />
         <Switch>
           <Route exact path="/">
@@ -74,16 +54,14 @@ function App() {
           <Route exact path="/details/:id">
             <ItemDetails />
           </Route>
-          <Route exact path="/suscription">
-            <Suscription />
-          </Route>
           <Route exact path="/login">
             <Login />
+          </Route>
+          <Route exact path="/cart">
+            <Cart />
           </Route>
         </Switch>
       </CartContext.Provider>
     </BrowserRouter>
   );
 }
-
-export default App;
