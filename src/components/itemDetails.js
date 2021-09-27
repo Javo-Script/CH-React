@@ -1,14 +1,41 @@
 import { useParams, Link } from "react-router-dom"
 import { useEffect, useState, useContext } from "react";
-import {recipesList} from "../dataBase";
+import {getFirestore, collection, getDocs} from 'firebase/firestore';
+import {getData} from '../firebase'
 import ItemCount from "./itemCount";
 import { CartContext } from "../context/cartContext";
 
 export default function ItemDetails () {
-  const [recipe, setRecipe] = useState([]);
-  const [hidden, setHidden] = useState(true);
+  const {cartItems, setCartItems} = useContext(CartContext);
   const {id} = useParams();
-  const {cartItems, setCartItems} = useContext(CartContext); 
+  const [hidden, setHidden] = useState(true);
+
+  const [recipesData, setRecipesData] = useState([]);
+  const [recipe, setRecipe] = useState([]);
+
+  useEffect(()=>{
+    const getRecipesData = async () => {
+      const recipesCollection = collection(getData(), 'recetas');
+      const recipesSnapshot = await  getDocs(recipesCollection);
+      const recipesList = recipesSnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      setRecipesData(recipesList);
+    };
+
+    getRecipesData();
+  },[])
+
+  useEffect(()=>{
+    for(var i=0 ; i<recipesData.length ; i++){
+      if (recipesData[i].id===id){
+        setRecipe(recipesData[i])
+      }
+    }
+  },[recipesData])
+
+  console.log(recipesData, recipe)
   
 
   const onAdd = (id, count) => {
@@ -43,26 +70,13 @@ export default function ItemDetails () {
     }
     
     setCartItems(items);
-    console.log(cartItems);
 
     setHidden(false);
   }
 
-  useEffect(()=>{
-    new Promise((resolve, reject) => {
-      setTimeout(
-        () => resolve(recipesList.filter((recipe) => recipe.id === id)),
-        2000
-      );
-    }).then(
-      (data) => setRecipe(data[0])
-    )    
-    .catch((error) =>{
-      console.log("err", error);
-    })
-  },[]);
 
   return(
+    
     <div className="main-container">
       <header>
         <img className="header-img" src={recipe.img} alt={"imagen de la receta"}></img>

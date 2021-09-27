@@ -1,26 +1,17 @@
-import { useState, useEffect } from "react";
+import { useEffect, useContext } from "react";
 import Item from "./Item";
-import {recipesList} from "../dataBase";
+import { RecipesContext } from "../context/recipesContext";
 
 export default function ItemList () {
-  const [items, setItems] = useState([])
+  const {recipesData, setRecipesData} = useContext(RecipesContext);
 
   useEffect(() => {
-    new Promise((resolve, reject) =>{
-      
-      setTimeout(() => resolve(recipesList), 2000);
-    })
-    .then((dataResolve) => {
-      setItems(dataResolve);
-    })
-    .catch((error) =>{
-      console.log("err", error);
-    })
+    setRecipesData(recipesData);
   },[]);
 
   return(
     <>
-      {items.map((item) =>(
+      {recipesData.map((item) =>(
         <Item id={item.id} img={item.img} title={item.title} category={item.category} description={item.description} price={item.price} stock={item.stock}/>
       ))}
     </>
